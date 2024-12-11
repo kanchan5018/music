@@ -9,7 +9,7 @@ const SongSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [playlistSongs, setPlaylistSongs] = useState([]);
-  const BACKEND_API = 'http://localhost:8000';
+  const BACKEND_API = 'https://music-3hs6.vercel.app/';
 
   // Fetch Spotify Access Token
   const getSpotifyToken = async () => {

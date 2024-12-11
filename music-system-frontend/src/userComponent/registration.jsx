@@ -33,8 +33,7 @@ const Registration = () => {
         setTimeout(() => {
           navigate("/"); // Redirect to login page
         }, 3000);
-      } else  {
-        console.log("lllllllllllllll")
+      } else if(registerStatus === "failed")  {
         toast.error(error?.message || "Registration failed!", {
           position: "top-right",
           autoClose: 3000,

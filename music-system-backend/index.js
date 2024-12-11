@@ -10,7 +10,9 @@ const playList = require("./routes/playlists");
 const PORT = 8000;
 const CONNECTION_URL = process.env.MONGO_URI;
 
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:3000", "https://music-pyjc.vercel.app"]
+}));
 app.use(express.json());
 
 
