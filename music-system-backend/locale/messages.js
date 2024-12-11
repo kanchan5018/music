@@ -1,0 +1,20 @@
+module.exports = {
+    NO_DATA: "No Data Found",
+    CATCH_ERROR: "Catch Error Found",
+    LOGIN_SUCCESS: "Logged in successfully",
+    INVALID_CREDENTIALS: "Invalid Credentials",
+    EMAIL_EXISTS: "Email already exists",
+    USER_NOT_CREATED: "User is not registered",
+    USER_CREATED: "User registered successfully",
+    PLAYLIST_UPDATED: "Playlist updated successfully",
+    PLAYLIST_DELETED: "Playlist deleted successfully",
+    PLAYLIST_SUCCESS: "Playlist fetched successfully",
+    PLAYLIST_EXISTS: "Playlist already Exists",
+    PLAYLIST_NOT_CREATED: "Playlist not created",
+    PLAYLIST_CREATED: "Playlist created successfully",
+    SONG_NOT_ADDED: "Song is not added in the playlist",
+    SONG_ADDED: "Song is added in the playlist",
+    DUPLICATE_SONG: "Song is already added in playlist",
+    SONGS_SUCCESS: "Songs fetched successfully",
+    SONGS_DELETED: "Song is deleted successfully"
+}

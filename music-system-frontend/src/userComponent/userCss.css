@@ -1,0 +1,43 @@
+    .login-img {
+        background-image: url('../assests/images/login.jpg') !important;
+    }
+
+    .registration{
+        background-image: url('../assests/images/registrarion.jpg') !important;
+    }
+
+    .cover-user .container-fluid {
+        max-width: 100%
+    }
+
+    .cover-user .cover-user-img {
+        height: 100vh;
+        padding: 10px
+    }
+    
+    @media (min-width: 1025px) {
+        .cover-user .cover-user-img {
+            padding:0 20%
+        }
+    }
+
+    .form-icon .icons {
+        position: absolute;
+        top: 13px;
+        left: 18px
+    }
+    
+
+    @media (max-width: 768px) {
+        .cover-user .container-fluid .padding-less {
+            position: relative !important;
+            height: 400px !important
+        }
+    }
+
+    .cover-user .container-fluid .padding-less.img {
+        background: scroll center no-repeat;
+        background-size: cover;
+        position: absolute;
+        height: 100%
+    }
