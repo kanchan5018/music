@@ -2,7 +2,7 @@ import { act } from "react";
 import { ActionTypes } from "./action";
 
 const defaultState = {
-  registraData: '',
+  registraData: {},
   isRegistration: false,
   isLogin: false,
   logindata: {},
@@ -28,7 +28,7 @@ const userReducer = (state = defaultState, action) => {
       return {
         ...state,
         isRegistration: false,
-        registerStatus: action.data.status,
+        registerStatus: action.error.status,
         error: action.error,
       };
     case ActionTypes.LOGIN_REQUEST:
@@ -47,8 +47,8 @@ const userReducer = (state = defaultState, action) => {
       return {
         ...state,
         isLogin: false,
-        loginstatus:action.data.status,
-        error: action.error,
+        loginstatus:action.error.status, // Ensure this is set to 'failed' to indicate the failure
+        error: action.error, // Store the error message
       };
     default:
       return state;

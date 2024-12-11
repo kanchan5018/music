@@ -13,7 +13,8 @@ const Registration = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { isRegistration, registraData, registerStatus } = useSelector((state) => state.User); // Access registration state
+  const { isRegistration, registraData, registerStatus, error } = useSelector((state) => state.User); // Access registration state
+  console.log("error",error)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,9 +25,8 @@ const Registration = () => {
   // Handle registration result and redirect if successful
   useEffect(() => {
     if (registraData) {
-      console.log("jjjjjjjjjjj", registraData)
       if (registerStatus === "success") {
-        toast.success(registraData.message, {
+        toast.success(registraData?.message, {
           position: "top-right",
           autoClose: 3000,
         });
@@ -34,13 +34,14 @@ const Registration = () => {
           navigate("/"); // Redirect to login page
         }, 3000);
       } else  {
-        toast.error(registraData.message || "Registration failed!", {
+        console.log("lllllllllllllll")
+        toast.error(error?.message || "Registration failed!", {
           position: "top-right",
           autoClose: 3000,
         });
       }
     }
-  }, [registraData, navigate]);
+  }, [registraData, navigate, error, registerStatus]);
 
   return (
     <section className="cover-user">

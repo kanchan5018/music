@@ -16,7 +16,7 @@ const register = async (req, res) => {
         // Validate required fields
         if (!username || !email || !password) {
             console.log("Validation failed: Missing required fields");
-            return res.status(400).send({
+            return res.status(200).send({
                 status: "failed",
                 message: "All fields are required.",
                 data: []
@@ -27,7 +27,7 @@ const register = async (req, res) => {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             console.log("User already exists, registration aborted");
-            return res.status(400).send({
+            return res.status(200).send({
                 status: "failed",
                 message: "User already exists.",
                 data: []
@@ -75,7 +75,7 @@ const login = async (req, res) => {
         // Validate required fields
         if (!email || !password) {
             console.log("Validation failed: Missing email or password");
-            return res.status(400).send({
+            return res.status(200).send({
                 status: "failed",
                 message: "Email and password are required.",
                 data: []
@@ -87,7 +87,7 @@ const login = async (req, res) => {
         console.log("user", user)
         if (!user) {
             console.log("Login failed: Invalid credentials");
-            return res.status(400).send({
+            return res.status(200).send({
                 status: "failed",
                 message: "Invalid credentials.",
                 data: []
@@ -98,7 +98,7 @@ const login = async (req, res) => {
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
             console.log("Login failed: Invalid credentials");
-            return res.status(400).send({
+            return res.status(200).send({
                 status: "failed",
                 message: "Invalid credentials.",
                 data: []

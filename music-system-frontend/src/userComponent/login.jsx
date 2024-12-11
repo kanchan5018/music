@@ -13,7 +13,7 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { isLogin, logindata, loginstatus } = useSelector((state) => state.User);
+  const { isLogin, logindata, loginstatus, error } = useSelector((state) => state.User);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -24,23 +24,27 @@ const Login = () => {
   // Handle login response and redirect to Playlist on success
   useEffect(() => {
     if (logindata) {
-      if (loginstatus=== "success") {
-        localStorage.setItem('token', logindata.data.token)
-        toast.success(logindata.message || 'Login SuccessFully', {
+      console.log("logindata", logindata);
+      if (loginstatus === "success") {
+        // Store the token in local storage and display success message
+        localStorage.setItem('token', logindata.data.token);
+        toast.success(logindata.message || 'Login Successfully', {
           position: "top-right",
           autoClose: 3000,
         });
+        // Redirect to Playlist page after a short delay
         setTimeout(() => {
-          navigate("/playlist"); // Redirect to Playlist page on success
+          navigate("/playlist");
         }, 3000);
-      } else if(loginstatus=== "failed") {
-        toast.error(logindata.message || "Login failed!", {
+      } else if (loginstatus === "failed") {
+        // Display error message if login failed
+        toast.error(error.message || "Login failed!", {
           position: "top-right",
           autoClose: 3000,
         });
       }
     }
-  }, [logindata, navigate]);
+  }, [logindata, loginstatus, navigate]);
 
   return (
     <section className="cover-user login">
@@ -62,7 +66,7 @@ const Login = () => {
                                 Your Email <span className="text-danger">*</span>
                               </label>
                               <div className="form-icon position-relative">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail fea icon-sm icons"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail fea icon-sm icons"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                 <input
                                   type="email"
                                   className={`form-control ps-5 ${errors.email ? "is-invalid" : ""}`}
@@ -83,19 +87,19 @@ const Login = () => {
                           <div className="col-lg-12">
                             <div className="mb-3">
                               <label className="form-label">
-                                password <span className="text-danger">*</span>
+                                Password <span className="text-danger">*</span>
                               </label>
                               <div className="form-icon position-relative">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-key fea icon-sm icons"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-key fea icon-sm icons"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
                                 <input
                                   type="password"
                                   className={`form-control ps-5 ${errors.password ? "is-invalid" : ""}`}
-                                  placeholder="password"
+                                  placeholder="Password"
                                   {...register("password", {
-                                    required: "password is required",
+                                    required: "Password is required",
                                     minLength: {
                                       value: 6,
-                                      message: "password must be at least 6 characters",
+                                      message: "Password must be at least 6 characters",
                                     },
                                   })}
                                   title={errors.password?.message || ""}
