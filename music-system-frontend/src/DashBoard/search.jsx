@@ -63,7 +63,7 @@ const SongSearch = () => {
   // Fetch songs in the playlist
   const fetchPlaylistSongs = async () => {
     try {
-      const response = await axios.get(`${BACKEND_API}/playlist/playlists/${playlistId}/songs`);
+      const response = await axios.get(`${BACKEND_API}/playlist/getallsong/${playlistId}`);
       console.log("response", response)
       setPlaylistSongs(response.data);
     } catch (error) {
