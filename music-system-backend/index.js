@@ -8,7 +8,7 @@ const app = express();
 // Import Routes
 const userRoutes = require("./routes/user");
 const playList = require("./routes/playlists");
-const CONNECTION_URL = process.env.MONGO_URI;
+const CONNECTION_URL = 'mongodb+srv://tiwarikanchan0518:tiwarikanchan0518@music.zun02.mongodb.net/?retryWrites=true&w=majority&appName=Music';
 
 app.use(cors());
 app.use(express.json());
