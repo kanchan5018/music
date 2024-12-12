@@ -9,7 +9,7 @@ const SongSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [playlistSongs, setPlaylistSongs] = useState([]);
-  const BACKEND_API = 'https://music-server-theta.vercel.app/';
+  const BACKEND_API = 'https://music-server-theta.vercel.app';
 
   // Fetch Spotify Access Token
   const getSpotifyToken = async () => {
