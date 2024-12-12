@@ -27,7 +27,6 @@ export const createplaylistRequest = (createData) => {
 };
 
 export const getallRequest = (getalldata) => {
-  console.log("getalldata", getalldata)
   return {
     type: ActionTypes.GET_ALL_PLAYLIST_REQUEST,
     payload: getalldata,
@@ -35,7 +34,6 @@ export const getallRequest = (getalldata) => {
 };
 
 export const updateRequest = (updateData) => {
-  console.log("updateData", updateData)
   return {
     type: ActionTypes.UPDATE_REQUEST,
     payload: updateData
