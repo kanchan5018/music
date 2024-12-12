@@ -26,4 +26,8 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("Database is connected successfully"))
     .catch((error) => console.error("Database connection error: ", error));
 
+app.listen(8000, () => {
+        console.log(`Server is running on port 8000`);
+});
+
 module.exports = app; // Export app for serverless functions
