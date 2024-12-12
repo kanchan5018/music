@@ -8,10 +8,12 @@ const app = express();
 // Import Routes
 const userRoutes = require("./routes/user");
 const playList = require("./routes/playlists");
-const CONNECTION_URL = 'mongodb+srv://tiwarikanchan0518:tiwarikanchan0518@music.zun02.mongodb.net/?retryWrites=true&w=majority&appName=Music';
 
+// Middleware
 app.use(cors());
 app.use(express.json());
+
+// Routes
 app.use("/user", userRoutes);
 app.use("/playlist", playList);
 
@@ -19,8 +21,9 @@ app.get("/", (req, res) => {
     res.send({ message: "Express Server for Music System is running on Vercel" });
 });
 
-mongoose.connect(CONNECTION_URL)
+// MongoDB Connection
+mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("Database is connected successfully"))
     .catch((error) => console.error("Database connection error: ", error));
 
-module.exports = app;
+module.exports = app; // Export app for serverless functions
