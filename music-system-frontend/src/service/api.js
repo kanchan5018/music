@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 // const BACKEND_API = 'http://localhost:8000/';
-const BACKEND_API = 'https://music-3hs6.vercel.app/';
+const BACKEND_API = 'https://music-server-theta.vercel.app/';
 
 function reqHeaders() {
   if (localStorage.getItem('token') !== null && localStorage.getItem('token') !== '' && localStorage.getItem('token') !== 'undefined') {
