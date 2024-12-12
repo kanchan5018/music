@@ -10,27 +10,7 @@ const playList = require("./routes/playlists");
 const PORT = 8000;
 const CONNECTION_URL = process.env.MONGO_URI;
 
-// Define allowed origins
-const allowedOrigins = [
-  "http://localhost:3000",  // for local development
-  "https://music-pyjc.vercel.app", // frontend deployment
-];
-
-// Configure CORS options
-const corsOptions = {
-    origin: (origin, callback) => {
-      if (allowedOrigins.includes(origin) || !origin) {
-        callback(null, true);
-      } else {
-        console.error(`Blocked by CORS: ${origin}`); // Debugging log
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true, // Allow credentials
-  };  
-
-// Use the CORS middleware
-app.use(cors(corsOptions));
+app.use(cors());
 
 
 app.use(express.json());
@@ -40,7 +20,7 @@ app.use("/user", userRoutes);
 app.use('/playlist', playList);
 
 app.get("/", (req, res) => {
-    return res.send({ message: "Express Server for Music System is running on vercel" });
+    res.send({ message: "Express Server for Music System is running on vercel" });
 });
 
 mongoose.connect(CONNECTION_URL)
