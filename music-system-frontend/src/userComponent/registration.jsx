@@ -14,7 +14,6 @@ const Registration = () => {
     formState: { errors },
   } = useForm();
   const { isRegistration, registraData, registerStatus, error } = useSelector((state) => state.User); // Access registration state
-  console.log("error",error)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

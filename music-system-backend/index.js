@@ -10,10 +10,30 @@ const playList = require("./routes/playlists");
 const PORT = 8000;
 const CONNECTION_URL = process.env.MONGO_URI;
 
-// app.use(cors({
-//     // origin: ["http://localhost:3000", "https://music-pyjc.vercel.app"]
-// }));
-app.use(cors());
+const cors = require("cors");
+const express = require("express");
+
+// Define allowed origins
+const allowedOrigins = [
+  "http://localhost:3000",  // for local development
+  "https://music-pyjc.vercel.app", // frontend deployment
+];
+
+// Configure CORS options
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, // Allow cookies and headers
+};
+
+// Use the CORS middleware
+app.use(cors(corsOptions));
+
 
 app.use(express.json());
 

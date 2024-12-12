@@ -1,25 +1,33 @@
 import { put, takeLatest, call, all } from 'redux-saga/effects';
 import { ActionTypes } from './action'; // Assuming your actionTypes file
 import { postRequestAPI, getRequestAPI, deleteRequestApi } from '../../service/api';
+import {  toast } from "react-toastify";
+
 
 // Create Playlist Saga
 function* createPlaylistSaga(action) {
-	try {
-	  const userId = action.payload.userId;  // Get the userId from the action payload
-	  const response = yield call(postRequestAPI, {
-		url: 'playlist/create',
-		data: { ...action.payload, user_id: userId }  // Include the user_id
-	  });
-  
-	  if (response?.data?.success) {
-		yield put({ type: ActionTypes.CREATE_PLAYLIST_SUCCESS, payload: response.data.data });
-	  } else {
-		yield put({ type: ActionTypes.CREATE_PLAYLIST_FAILURE, payload: response.data.message });
-	  }
-	} catch (err) {
-	  yield put({ type: ActionTypes.CREATE_PLAYLIST_FAILURE, payload: err?.response?.data || err.message });
-	}
+  try {
+    const userId = action.payload.userId; // Get the userId from the action payload
+
+    const response = yield call(postRequestAPI, {
+      url: 'playlist/create',
+      data: { ...action.payload, user_id: userId }, // Include the user_id
+    });
+
+    if (response?.data?.success) {
+      yield put({ type: ActionTypes.CREATE_PLAYLIST_SUCCESS, payload: response.data.data });
+      toast.success("Playlist created successfully!"); // Success toast notification
+    } else {
+      const errorMessage = response?.data?.message || "Error creating playlist";
+      yield put({ type: ActionTypes.CREATE_PLAYLIST_FAILURE, payload: errorMessage });
+      toast.error(errorMessage); // Error toast notification
+    }
+  } catch (err) {
+    const errorMessage = err?.response?.data || err.message;
+    yield put({ type: ActionTypes.CREATE_PLAYLIST_FAILURE, payload: errorMessage });
+    toast.error("An unexpected error occurred. Please try again later."); // Generic error toast notification
   }
+}
   
 
 // Get All Playlists Saga
@@ -42,21 +50,26 @@ function* getAllPlaylistsSaga(action) {
   
 
 // Update Playlist Saga
-function* updatePlaylistSaga(action) {
-	console.log(action.payload.id)
+function* updatePlaylistSaga(action) {  
 	try {
+	  const playlistId = action.payload.id; // Extract the playlist ID
 	  const response = yield call(postRequestAPI, {
-		url: `playlist/update/${action.payload.id}`,
-		data: action.payload
+		url: `playlist/update/${playlistId}`, // Use template literal for clarity
+		data: action.payload,
 	  });
   
 	  if (response?.data?.success) {
-		yield put({ type: ActionTypes.UPDATE_SUCESS, payload: response.data.data });
+		yield put({ type: ActionTypes.UPDATE_SUCCESS, payload: response.data.data });
+		toast.success("Playlist updated successfully!"); // Success toast notification
 	  } else {
-		yield put({ type: ActionTypes.UPDATE_FAILURE, payload: response.data.message });
+		const errorMessage = response?.data?.message || "Error updating playlist";
+		yield put({ type: ActionTypes.UPDATE_FAILURE, payload: errorMessage });
+		toast.error(errorMessage); // Error toast notification
 	  }
 	} catch (err) {
-	  yield put({ type: ActionTypes.UPDATE_FAILURE, payload: err?.response?.data || err.message });
+	  const errorMessage = err?.response?.data || err.message;
+	  yield put({ type: ActionTypes.UPDATE_FAILURE, payload: errorMessage });
+	  toast.error("An unexpected error occurred. Please try again later."); // Generic error toast notification
 	}
   }
   
