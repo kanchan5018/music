@@ -21,15 +21,16 @@ const allowedOrigins = [
 
 // Configure CORS options
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true, // Allow cookies and headers
-};
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin) || !origin) {
+        callback(null, true);
+      } else {
+        console.error(`Blocked by CORS: ${origin}`); // Debugging log
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Allow credentials
+  };  
 
 // Use the CORS middleware
 app.use(cors(corsOptions));
