@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
+import './DashBoard.css'
 
 const SongSearch = () => {
   let { playlistId } = useParams();
@@ -95,7 +96,7 @@ const SongSearch = () => {
 
   return (
     <div className="container">
-      <button className="btn btn-secondary mb-3" onClick={() => navigate(-1)}>
+      <button className="btn btn-gradient-primary mt-3 mb-3" onClick={() => navigate(-1)}>
         Back
       </button>
 
