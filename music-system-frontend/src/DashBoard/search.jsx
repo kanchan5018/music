@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const SongSearch = () => {
-  let {playlistId} = useParams();
-  console.log('playlistId',playlistId)
+  let { playlistId } = useParams();
+  const navigate = useNavigate(); // Hook to navigate between routes
+
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [playlistSongs, setPlaylistSongs] = useState([]);
-  const BACKEND_API = 'https://music-server-theta.vercel.app';
+  const BACKEND_API = "https://music-server-theta.vercel.app";
 
   // Fetch Spotify Access Token
   const getSpotifyToken = async () => {
@@ -64,7 +65,6 @@ const SongSearch = () => {
   const fetchPlaylistSongs = async () => {
     try {
       const response = await axios.get(`${BACKEND_API}/playlist/getallsong/${playlistId}`);
-      console.log("response", response)
       setPlaylistSongs(response.data?.songs);
     } catch (error) {
       console.error("Error fetching playlist songs:", error);
@@ -95,6 +95,10 @@ const SongSearch = () => {
 
   return (
     <div className="container">
+      <button className="btn btn-secondary mb-3" onClick={() => navigate(-1)}>
+        Back
+      </button>
+
       <h3>Playlist Songs</h3>
       <ul className="list-group mb-4">
         {playlistSongs.length > 0 ? (

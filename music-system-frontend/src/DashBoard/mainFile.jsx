@@ -20,6 +20,7 @@ const DashBoard = () => {
   const [selectedPlaylist, setSelectedPlaylist] = useState(null); // State to track the selected playlist for editing
   const [newPlaylist, setNewPlaylist] = useState({ name: "", description: "" }); // State for creating a new playlist
   const [editPlaylist, setEditPlaylist] = useState({ name: "", description: "" }); // State for editing an existing playlist
+  const [errors, setErrors] = useState({ name: "", description: "" }); // State for tracking errors
   const navigate = useNavigate(); // Hook for navigation
 
   // Fetch playlists when the component loads or when login data changes
@@ -33,10 +34,26 @@ const DashBoard = () => {
     navigate(`/search/${playlist._id}`);
   };
 
-  // Dispatch action to create a new playlist
+  // Dispatch action to create a new playlist with validation
   const handleCreatePlaylist = () => {
+    const { name, description } = newPlaylist;
+    const newErrors = {};
+
+    if (!name.trim()) {
+      newErrors.name = "Playlist name is required.";
+    }
+    if (!description.trim()) {
+      newErrors.description = "Description is required.";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors); // Update error state
+      return;
+    }
+
     dispatch(createplaylistRequest({ ...newPlaylist }));
-    setNewPlaylist({ name: "", description: "" }); // Reset new playlist form
+    setNewPlaylist({ name: "", description: "" }); // Reset form
+    setErrors({}); // Clear errors
   };
 
   // Dispatch action to update an existing playlist
@@ -113,6 +130,7 @@ const DashBoard = () => {
             onClick={() => {
               setSelectedPlaylist(null); // Clear selected playlist for new entry
               setNewPlaylist({ name: "", description: "" });
+              setErrors({}); // Clear errors
             }}
           >
             Add Playlist
@@ -144,10 +162,12 @@ const DashBoard = () => {
                   <div className="modal-body">
                     {/* Input for playlist name */}
                     <div className="mb-3">
-                      <label className="form-label">Playlist Name</label>
+                      <label className="form-label">
+                        Playlist Name {selectedPlaylist ? null : <span className="text-danger">*</span>}
+                      </label>
                       <input
                         type="text"
-                        className="form-control"
+                        className={`form-control ${errors.name ? "is-invalid" : ""}`}
                         value={selectedPlaylist ? editPlaylist.name : newPlaylist.name}
                         onChange={(e) =>
                           selectedPlaylist
@@ -156,13 +176,16 @@ const DashBoard = () => {
                         }
                         placeholder="Enter playlist name"
                       />
+                      {errors.name && <div className="invalid-feedback">{errors.name}</div>}
                     </div>
                     {/* Input for playlist description */}
                     <div className="mb-3">
-                      <label className="form-label">Description</label>
+                      <label className="form-label">
+                        Description {selectedPlaylist ? null : <span className="text-danger">*</span>}
+                      </label>
                       <input
                         type="text"
-                        className="form-control"
+                        className={`form-control ${errors.description ? "is-invalid" : ""}`}
                         value={selectedPlaylist ? editPlaylist.description : newPlaylist.description}
                         onChange={(e) =>
                           selectedPlaylist
@@ -171,6 +194,7 @@ const DashBoard = () => {
                         }
                         placeholder="Enter playlist description"
                       />
+                      {errors.description && <div className="invalid-feedback">{errors.description}</div>}
                     </div>
                   </div>
                   <div className="modal-footer">
