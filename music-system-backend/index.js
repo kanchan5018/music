@@ -10,9 +10,6 @@ const playList = require("./routes/playlists");
 const PORT = 8000;
 const CONNECTION_URL = process.env.MONGO_URI;
 
-const cors = require("cors");
-const express = require("express");
-
 // Define allowed origins
 const allowedOrigins = [
   "http://localhost:3000",  // for local development
