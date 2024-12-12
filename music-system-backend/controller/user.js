@@ -105,10 +105,10 @@ const login = async (req, res) => {
             });
         }
 
-        // Generate JWT
+       // Generate JWT
         const token = jwt.sign(
             { id: user._id, username: user.username },
-            JWT_SECRET,
+            JWT_SECRET || 'kanchan',
             { expiresIn: '24h' }
         );
 
