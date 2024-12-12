@@ -74,6 +74,7 @@ const SongSearch = () => {
   const addSongToPlaylist = async (song) => {
     try {
       await axios.post(`${BACKEND_API}/playlist/playlists/${playlistId}/songs`, {
+        spotifyId: song.name,
         name: song.name,
         artist: song.artists[0].name,
         album: song.album.name,

@@ -111,7 +111,8 @@ const getPlaylistDetails = async (req, res) => {
   }
 
   const addSongs = async (req, res) => {
-    const {  name, artist, album } = req.body;
+    const {  name, artist, album , spotifyId} = req.body;
+    console.log("req", req.body)
     try {
       // Check if the song already exists
       let song = await Songs.findOne({ spotifyId });
