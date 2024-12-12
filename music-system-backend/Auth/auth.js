@@ -14,7 +14,7 @@ const Auth = (req, res, next) => {
     }
 
     try {
-        const jwtPayload = jwt.verify(token, JWT_TOKEN);
+        const jwtPayload = jwt.verify(token, process.env.JWT_TOKEN || 'kanchan');
         console.log("Decoded JWT Payload:", jwtPayload);  // Log the decoded payload
         res.locals.jwtPayload = jwtPayload;
         req.user = jwtPayload;  // Attach the user info (e.g., user id) to the request object
