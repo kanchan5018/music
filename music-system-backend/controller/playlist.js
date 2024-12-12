@@ -1,5 +1,5 @@
-const Playlist = require("../models/Playlist");
-const Songs = require("../models/Songs");
+const Playlist = require("../models/playlist");
+const Songs = require("../models/songs");
 
 const { 
     CATCH_ERROR, 
