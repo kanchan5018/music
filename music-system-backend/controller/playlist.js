@@ -102,17 +102,24 @@ const getPlaylistDetails = async (req, res) => {
   
   const getAllSongs = async (req, res) => {
     try {
-      const playlist = await Playlist.findById(req.params.id).populate('songs');
-      if (!playlist) return res.status(404).send({ message: 'Playlist not found' });
-      res.send(playlist.songs);
+        // Find the playlist by ID and populate the songs field with details
+        const playlist = await Playlist.findById(req.params.id).populate('songs');
+        
+        if (!playlist) {
+            return res.status(404).send({ message: 'Playlist not found' });
+        }
+
+        // Send the full playlist object including the populated songs
+        res.send(playlist);
     } catch (err) {
-      res.status(500).send(err.message);
+        // Handle any errors
+        res.status(500).send({ error: err.message });
     }
-  }
+};
+
 
   const addSongs = async (req, res) => {
     const {  name, artist, album , spotifyId} = req.body;
-    console.log("req", req.body)
     try {
       // Check if the song already exists
       let song = await Songs.findOne({ spotifyId });
